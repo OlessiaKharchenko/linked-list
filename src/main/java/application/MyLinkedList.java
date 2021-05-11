@@ -1,6 +1,6 @@
 package application;
 
-public class LinkedList<T> implements List<T> {
+public class MyLinkedList<T> implements ListInterface<T> {
     private Node<T> firstNode;
     private Node<T> lastNode;
     private int size;
@@ -71,35 +71,24 @@ public class LinkedList<T> implements List<T> {
     }
 
     private void addLast(T value) {
-        // силаємося на останню ноду
         Node<T> prev = lastNode;
-        // створюємо нову і силкою на попередню, наступна - нал
         Node<T> newNode = new Node<>(prev, value, null);
-        // останньою нодою ліста робимо - нову
         lastNode = newNode;
-        //  якщо список пустий
         if (prev == null) {
-            // створюємо першу ноду
             firstNode = newNode;
         } else {
-            // якщо список не пустий, змінюємо силку
             prev.nextElement = newNode;
         }
         size++;
     }
 
     private void addBefore(T t, Node<T> element) {
-        // силаємося на ноду перед елементом
         Node<T> prev = element.prevElement;
-        // створюємо цю ноду
         Node<T> newNode = new Node<>(prev, t, element);
-        // змінюємо одну силку
         element.prevElement = newNode;
-        //якщо попередній елемент - нал, то у лісті одна нода
         if (prev == null) {
-            firstNode = newNode; // замінюємо першу  ????
+            firstNode = newNode;
         } else {
-            // змінюємо другу силку
             prev.nextElement = newNode;
         }
         size++;
@@ -107,15 +96,13 @@ public class LinkedList<T> implements List<T> {
 
     private Node<T> findNodeByIndex(int index) {
         checkIndex(index);
-        if (index < (size >> 1)) { //  якщо індекс менший за size/2
-            // йдемо від першої ноди
+        if (index < (size >> 1)) {
             Node<T> nodeToReturn = firstNode;
             for (int i = 0; i < index; i++) {
                 nodeToReturn = nodeToReturn.nextElement;
             }
             return nodeToReturn;
         } else {
-            // йдемо від останної ноди
             Node<T> nodeToReturn = lastNode;
             for (int i = size - 1; i > index; i--) {
                 nodeToReturn = nodeToReturn.prevElement;

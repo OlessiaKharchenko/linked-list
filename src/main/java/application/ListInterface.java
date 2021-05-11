@@ -1,6 +1,6 @@
 package application;
 
-public interface List<T> {
+public interface ListInterface<T> {
 
     boolean add(T value);
 
